@@ -3,6 +3,7 @@ const express = require('express');
 
 const ServerConfig = require('./config/serverConfig');
 const connectDB = require('./config/dbConfig');
+// const User = require('./schema/userSchema');     // for testing purpose
 
 //Express object(server object)
 const app = express();
@@ -22,4 +23,15 @@ app.post('/ping', (req,res)=>{
 app.listen(ServerConfig.PORT, async () =>{
     await connectDB();
     console.log(`Server is started on port ${ServerConfig.PORT}`);
+
+    // Testing that our schema and model working well 
+    // const newUser = await User.create({
+    //     firstName:"Anmol",
+    //     lastName: "Tripathi",
+    //     mobileNumber: "1234556344",
+    //     email:"tripathi@gmail.com",
+    //     password:"anmol123",
+    // });
+    // console.log("New user created");
+    // console.log(newUser);
 });
