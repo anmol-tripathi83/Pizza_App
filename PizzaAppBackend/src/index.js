@@ -30,15 +30,5 @@ app.post('/ping', (req,res)=>{
 app.listen(ServerConfig.PORT, async () =>{
     await connectDB();
     console.log(`Server is started on port ${ServerConfig.PORT}`);
-
-    // Testing that our schema and model working well 
-    // const newUser = await User.create({
-    //     firstName:"Anmol",
-    //     lastName: "Tripathi",
-    //     mobileNumber: "1234556344",
-    //     email:"tripathi@gmail.com",
-    //     password:"anmol123",
-    // });
-    // console.log("New user created");
-    // console.log(newUser);
+    
 });

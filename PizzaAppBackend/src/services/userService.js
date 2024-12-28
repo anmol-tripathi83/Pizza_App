@@ -1,7 +1,7 @@
 class UserService {
 
     constructor(_userRepository){
-        this.userRepository = _userRepository;       // object of userRepository class take as an argument and stored it in object property(used to call functions of userRepository class)
+        this.userRepository = _userRepository;       // object of userRepository class take as an argument and stored it in class property(used to call functions of userRepository class)
     }
     // It will create brand new user it the database
     async registerUser(userDetails){
