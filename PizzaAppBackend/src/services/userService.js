@@ -16,7 +16,7 @@ async function registerUser(userDetails){
     // 2. If not then Create the user in the database
     const newUser = await createUser({       // this is sended by manually writing because let say userDetails have extra details on it but we will send only relevant details to store in the database
         email : userDetails.email,
-        password : userDetails.password,
+        password : userDetails.password,              // here bcrypt not applied because it is not guranteed that bcrypted password fullfill the constraints which is done by mongoose scema layer so this can be done by using pre hook to bcrypt the password before user created
         firstName : userDetails.firstName,
         lastName : userDetails.lastName,
         mobileNumber : userDetails.mobileNumber

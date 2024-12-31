@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const bcrypt = require('bcrypt'); 
 
 const userSchema = new mongoose.Schema({
     firstName : {
@@ -39,6 +40,14 @@ const userSchema = new mongoose.Schema({
     }
 },{
     timestamps : true       // it will automatically create property that is "createdAt" and "upadatedAt" this will automatically added in our defined schema as a property 
+});
+
+// pre hook to bcrypt the user password before the user created 
+userSchema.pre('save', async function (){
+    // here you can modify your user before it is saved in mongoDB
+    // console.log(this);  // because of normal function(not an arrow function) this will refer to callset and this is called by userSchema and it have access of user 
+    const hashPassword = await bcrypt.hash(this.password, 10);
+    this.password = hashPassword;
 });
 
 // collection ko mongoose ki duniya me model kehte h, collection name is here - 'User and we have given the collection schema in next argument(it will create the collection object name User with userSchema as a schema)
