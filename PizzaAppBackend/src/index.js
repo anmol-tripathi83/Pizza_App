@@ -7,6 +7,7 @@ const connectDB = require('./config/dbConfig');
 const userRouter = require('./routes/userRoute');
 const cartRouter = require('./routes/cartRoute');
 const authRouter = require('./routes/authRoute');
+const { isLoggedIn } = require('./validation/authValidator');
 // const User = require('./schema/userSchema');     // for testing purpose
 
 //Express object(server object)
@@ -25,7 +26,8 @@ app.use('/carts',cartRouter);      // connects the cart router to the server
 app.use('/auth',authRouter);      // connects the auth router to the server
 
 // Tocheck above parser methods(json(), text() etc) works or not
-app.post('/ping', (req,res)=>{
+app.get('/ping', isLoggedIn, (req,res)=>{
+    // controller
     console.log(req.body);
     console.log(req.cookies);
     return res.json({message:"pong"});
