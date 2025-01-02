@@ -1,5 +1,6 @@
 const express = require('express');
 // Now a days body parser is pre installed in express dependencies(instead express also providing these function to totally deprecate the use of bodyparser)
+const cookieParser = require("cookie-parser");         // is used to read the cookie using request body(because needed for the further process lets say after login we have to place an order therefore we have to send the token therefore token can be accessed using req object)
 
 const ServerConfig = require('./config/serverConfig');
 const connectDB = require('./config/dbConfig');
@@ -10,6 +11,8 @@ const authRouter = require('./routes/authRoute');
 
 //Express object(server object)
 const app = express();
+
+app.use(cookieParser());    // this middleware helps to start reading cookies
 // now due to this deserializer this project start the reading json,text and urlencoded coming in the req body 
 app.use(express.json());       
 app.use(express.text());
@@ -24,6 +27,7 @@ app.use('/auth',authRouter);      // connects the auth router to the server
 // Tocheck above parser methods(json(), text() etc) works or not
 app.post('/ping', (req,res)=>{
     console.log(req.body);
+    console.log(req.cookies);
     return res.json({message:"pong"});
 });
 
