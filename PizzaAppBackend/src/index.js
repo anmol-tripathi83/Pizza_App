@@ -8,6 +8,7 @@ const userRouter = require('./routes/userRoute');
 const cartRouter = require('./routes/cartRoute');
 const authRouter = require('./routes/authRoute');
 const { isLoggedIn } = require('./validation/authValidator');
+const uploader = require('./middleware/multerMiddleware');
 // const User = require('./schema/userSchema');     // for testing purpose
 
 //Express object(server object)
@@ -33,6 +34,10 @@ app.get('/ping', isLoggedIn, (req,res)=>{
     return res.json({message:"pong"});
 });
 
+// For checking the functioning of multer(uploader middleware)
+app.post('/photo', uploader.single('incomingFile') , (req,res) =>{
+    return res.json({ message: 'Ok'});
+});
       
 // localhost(127.0.0.1):3000 -> socket address(IP + port)
 app.listen(ServerConfig.PORT, async () =>{
