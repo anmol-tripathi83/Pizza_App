@@ -9,6 +9,7 @@ const cartRouter = require('./routes/cartRoute');
 const authRouter = require('./routes/authRoute');
 const { isLoggedIn } = require('./validation/authValidator');
 const uploader = require('./middleware/multerMiddleware');
+const cloudinary = require('./config/cloudinaryConfig');
 // const User = require('./schema/userSchema');     // for testing purpose
 
 //Express object(server object)
@@ -35,7 +36,10 @@ app.get('/ping', isLoggedIn, (req,res)=>{
 });
 
 // For checking the functioning of multer(uploader middleware)
-app.post('/photo', uploader.single('incomingFile') , (req,res) =>{
+app.post('/photo', uploader.single('incomingFile') , async (req,res) =>{
+    console.log(req.file);
+    const result = await cloudinary.uploader.upload(req.file.path);   // cloudinary provide the function uploader.upload(path of image which is going to be uploaded in cloudinary) and it return an object(stored in result) also contain URL and many more property
+    console.log("result from cloudinary",result);
     return res.json({ message: 'Ok'});
 });
       
