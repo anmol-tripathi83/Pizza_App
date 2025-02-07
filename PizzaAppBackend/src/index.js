@@ -10,6 +10,7 @@ const authRouter = require('./routes/authRoute');
 const { isLoggedIn } = require('./validation/authValidator');
 const uploader = require('./middleware/multerMiddleware');
 const cloudinary = require('./config/cloudinaryConfig');
+const fs = require("fs/promises");   // provide by nodejs to access file system(deleting the images in uploads folder)
 // const User = require('./schema/userSchema');     // for testing purpose
 
 //Express object(server object)
@@ -40,6 +41,7 @@ app.post('/photo', uploader.single('incomingFile') , async (req,res) =>{
     console.log(req.file);
     const result = await cloudinary.uploader.upload(req.file.path);   // cloudinary provide the function uploader.upload(path of image which is going to be uploaded in cloudinary) and it return an object(stored in result) also contain URL and many more property
     console.log("result from cloudinary",result);
+    await fs.unlink(req.file.path);    // delete the image from the upload folder
     return res.json({ message: 'Ok'});
 });
       
