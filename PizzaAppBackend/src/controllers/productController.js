@@ -27,6 +27,16 @@ async function addProduct(req, res){
     }
 }
 
+async function getProductById(req,res){
+    
+}
+
+async function deleteProductById(req,res){
+
+}
+
 module.exports = { 
-    addProduct      // now it is returning function
+    addProduct,      // now it is returning function
+    getProductById,
+    deleteProductById
 };             
