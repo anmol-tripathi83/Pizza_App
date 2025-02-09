@@ -11,6 +11,7 @@ const { isLoggedIn } = require('./validation/authValidator');
 const uploader = require('./middleware/multerMiddleware');
 const cloudinary = require('./config/cloudinaryConfig');
 const fs = require("fs/promises");   // provide by nodejs to access file system(deleting the images in uploads folder)
+const ProductRouter = require('./routes/productRoute');
 // const User = require('./schema/userSchema');     // for testing purpose
 
 //Express object(server object)
@@ -27,6 +28,7 @@ app.use(express.urlencoded({extended:true}));
 app.use('/users', userRouter);     // connects the user router to the server
 app.use('/carts',cartRouter);      // connects the cart router to the server
 app.use('/auth',authRouter);      // connects the auth router to the server
+app.use('/products',ProductRouter);    // connects the Product router to the server
 
 // Tocheck above parser methods(json(), text() etc) works or not
 app.get('/ping', isLoggedIn, (req,res)=>{
@@ -36,12 +38,12 @@ app.get('/ping', isLoggedIn, (req,res)=>{
     return res.json({message:"pong"});
 });
 
-// For checking the functioning of multer(uploader middleware)
+// For checking the functioning of multer(uploader middleware) and learn how to upload image to cloudinary
 app.post('/photo', uploader.single('incomingFile') , async (req,res) =>{
     console.log(req.file);
     const result = await cloudinary.uploader.upload(req.file.path);   // cloudinary provide the function uploader.upload(path of image which is going to be uploaded in cloudinary) and it return an object(stored in result) also contain URL and many more property
     console.log("result from cloudinary",result);
-    await fs.unlink(req.file.path);    // delete the image from the upload folder
+    await fs.unlink(req.file.path);    // delete the image from the upload folder(to avoid bulyness of our project)
     return res.json({ message: 'Ok'});
 });
       
