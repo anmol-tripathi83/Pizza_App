@@ -12,7 +12,8 @@ async function createProduct(productDetails){
         try{
             const cloudinaryResponse = await cloudinary.uploader.upload(imagePath);
             var productImage = cloudinaryResponse.secure_url;
-            await fs.unlink(imagePath);
+            console.log(process.cwd()+"/"+imagePath);   // process.cmd() gives the current working directory(root directory) then reaching to the opload folder to unlink the images(delete) 
+            await fs.unlink(process.cwd()+"/"+imagePath);    // process.cmd() gives the current working directory(root directory) then reaching to the opload folder to unlink the images(delete) 
         } catch(error){
             console.log(error);
             throw new InternalServerError();
