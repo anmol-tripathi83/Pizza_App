@@ -1,12 +1,22 @@
 const Product = require('../schema/productSchema');
+const BadRequestError = require('../utils/badRequest');
+const InternalServerError = require('../utils/InternalServerError');
 
 // interacting with the database(creating a new product with following product details which is in productDetails object)
 async function createProduct(ProductDetails){
     try{
         const response = await Product.create(ProductDetails);
         return response; 
-    } catch(error){
+    } catch(error){ 
+        if(error.name == 'ValidationError'){    // sent by mongoose(when req schema info is not given by the user or incorrect email format etc..)
+            const errorMessageList = Object.keys(error.errors).map((property) => {
+                return error.errors[property].message;
+            });
+            throw new BadRequestError(errorMessageList);
+        }
         console.log(error);
+        // otherwise internalServer error
+        throw new InternalServerError();   // DB se related issue
     }
 }
 
@@ -17,6 +27,7 @@ async function getProductById(productId){
         return product;
     } catch(error){
         console.log(error);
+        throw new InternalServerError();  // DB se related issue
     }
 }
 
@@ -24,9 +35,10 @@ async function getProductById(productId){
 async function deleteProductById(productId){
     try{
         const response = await Product.findByIdAndDelete(productId);
-        return true;
+        return response;
     } catch(error){
         console.log(error);
+        throw new InternalServerError();   // DB se related issue
     }
 }
 

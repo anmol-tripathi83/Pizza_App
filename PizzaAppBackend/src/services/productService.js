@@ -1,6 +1,8 @@
 const cloudinary = require('../config/cloudinaryConfig');
 const fs = require('fs/promises');
 const ProductRepository = require('../repositories/productRepo');
+const InternalServerError = require('../utils/InternalServerError');
+const NotFoundError = require('../utils/notFoundError');
 
 // It will create brand new product it the database
 async function createProduct(productDetails){
@@ -13,7 +15,7 @@ async function createProduct(productDetails){
             await fs.unlink(imagePath);
         } catch(error){
             console.log(error);
-            throw {reason: 'Not able to create product',statusCode: 500};
+            throw new InternalServerError();
         }
     }
     // 2. Then use the url from cloudinary and other product details to add product in the DB
@@ -22,10 +24,6 @@ async function createProduct(productDetails){
         productImage : productImage
     });
 
-    if(!product){
-        throw {reason: 'Not able to create product',statusCode: 500};
-    }
-
     return product;
 }
 
@@ -33,7 +31,7 @@ async function getProductById(productId){
     const response = await ProductRepository.getProductById(productId);
 
     if(!response){
-        throw {reason: 'Not able to find the Product', statusCode: 404};
+        throw new NotFoundError('Product');
     }
     return response;
 }
@@ -42,7 +40,7 @@ async function deleteProductById(productId){
     const response = await ProductRepository.deleteProductById(productId);
 
     if(!response){
-        throw {reason: 'Can not delete the Product', statusCode: 500};
+        throw new NotFoundError('Product');
     }
     return response;
 }
