@@ -47,7 +47,7 @@ async function isLoggedIn(req, res, next){
  * because we will call isadmin after isLoggedin thats why we will receive user details
  */
 async function isAdmin(req,res,next){
-    const loggedInUser = req.user;
+    const loggedInUser = req.user;    // this is updated req object(updated by isloggedin middleware) which having user as a project(contain role as a property)
     if(loggedInUser.role == "ADMIN"){
         next();
     }
