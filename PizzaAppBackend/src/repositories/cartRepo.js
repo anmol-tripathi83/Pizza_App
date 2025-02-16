@@ -1,5 +1,6 @@
 const Cart = require("../schema/cartSchema");
 
+// function to interact with cart DB and create cart
 async function createCart(userId){
     try{
         const newCart = await Cart.create({
@@ -19,6 +20,19 @@ async function createCart(userId){
     }
 }
 
+async function getCartBYUserId(userId){
+    try{
+        const cart = await Cart.findOne({
+            user: userId
+        });
+        return cart;
+    } catch(error){
+        console.log(error);
+        throw new InternalServerError();
+    }
+}
+
 module.exports = {
-    createCart
+    createCart,
+    getCartBYUserId
 }
