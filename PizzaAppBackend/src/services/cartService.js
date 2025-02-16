@@ -12,7 +12,9 @@ async function getCart(userId){
     return cart;
 }
 
-async function addToCart(userId, productId){
+// Now this function will do both work either adding or deletion of product from cart according to shouldAdd value
+async function modifyCart(userId, productId, shouldAdd = true){   // shouldAdd default value is true which signifies that addition of product will be done in the cart
+    const quantityValue = (shouldAdd==true)? 1 : -1;
     const cart = await getCart(userId);
     const product = await getProductById(productId);
     if(!product){     // product not found in the productlist
@@ -27,8 +29,14 @@ async function addToCart(userId, productId){
     let foundProduct = false;
     cart.items.forEach(item => {
         if(item.product._id == productId){    // as cart.product is an object and productId is string
-            if(product.quantity >= item.quantity + 1)
-                item.quantity += 1;
+            if((shouldAdd && product.quantity >= item.quantity + 1) || (!shouldAdd && item.quantity!=0)){
+                item.quantity += quantityValue;
+                if(item.quantity == 0){
+                    cart.items = cart.items.filter(item => item.product._id != productId);
+                    foundProduct = true;
+                    return;
+                }
+            }
             else{
                 throw new AppError("The qunatity of the item requested is not available",404);
             }
@@ -37,10 +45,14 @@ async function addToCart(userId, productId){
     });
     // if product is not found in the cart
     if(!foundProduct){
-        cart.items.push({
-            product: productId,
-            quantity: 1
-        });
+        if(shouldAdd){
+            cart.items.push({
+                product: productId,
+                quantity: 1
+            });
+        } else{
+            throw new NotFoundError("Product in the cart");
+        }
     }
     // to save the changes in updated cart of the user
     await cart.save();
@@ -50,5 +62,5 @@ async function addToCart(userId, productId){
 
 module.exports = {
     getCart,
-    addToCart
+    modifyCart
 }
