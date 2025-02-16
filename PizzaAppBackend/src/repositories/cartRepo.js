@@ -1,4 +1,6 @@
 const Cart = require("../schema/cartSchema");
+const BadRequestError = require("../utils/badRequest");
+const InternalServerError = require("../utils/InternalServerError");
 
 // function to interact with cart DB and create cart
 async function createCart(userId){
@@ -24,7 +26,7 @@ async function getCartBYUserId(userId){
     try{
         const cart = await Cart.findOne({
             user: userId
-        });
+        }).populate("items.product");      // now by this product details will be populate(fetched and attached instead pf only productID into the cart schema) in the cart => populate property inside in array of schema mongoose
         return cart;
     } catch(error){
         console.log(error);
