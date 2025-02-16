@@ -22,7 +22,8 @@ async function loginUser(authDetails){
     }
 
     // 3. If the password is validated, create a token and return it
-    const token = jwt.sign({ email: user.email, id: user._id }, JWT_SECRET, { expiresIn: JWT_EXPIRY });
+    const userRole = user.role? user.role: "USER";   // for authorisation(or checking isuser is only user or admin for accessing product apis)
+    const token = jwt.sign({ email: user.email, id: user._id, role: userRole}, JWT_SECRET, { expiresIn: JWT_EXPIRY });
     return token;
 }
 

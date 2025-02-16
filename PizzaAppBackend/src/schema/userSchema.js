@@ -37,6 +37,11 @@ const userSchema = new mongoose.Schema({
         required : [true, "Password is required"],  
         minlength : [8, "Password must be atleast 8 character long"],
         trim: true,       // if the user gives extra spaces then it will automatically remove it
+    },
+    role:{    // For authorization
+        type:String,
+        enum: ["USER", "ADMIN"],
+        default: "USER"
     }
 },{
     timestamps : true       // it will automatically create property that is "createdAt" and "upadatedAt" this will automatically added in our defined schema as a property 
