@@ -2,6 +2,7 @@ const { getCartBYUserId } = require("../repositories/cartRepo");
 const { getProductById } = require("../repositories/productRepo");
 const AppError = require("../utils/appError");
 const BadRequestError = require("../utils/badRequest");
+const InternalServerError = require("../utils/InternalServerError");
 const NotFoundError = require("../utils/notFoundError");
 
 async function getCart(userId){
@@ -60,7 +61,26 @@ async function modifyCart(userId, productId, shouldAdd = true){   // shouldAdd d
     return cart;
 }
 
+async function clearCart(userId){
+    try{
+        const cart = await getCart(userId);
+        if(!cart){
+            throw new NotFoundError("Cart");
+        }
+        // clear the cart.items array
+        cart.items = [];
+        // save the changes in the DB
+        await cart.save();
+        // return the cart
+        return cart;
+    } catch(error) {
+        console.log(error);
+        throw new InternalServerError();
+    }
+}
+
 module.exports = {
     getCart,
-    modifyCart
+    modifyCart,
+    clearCart
 }
