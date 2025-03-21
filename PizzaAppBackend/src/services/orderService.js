@@ -1,5 +1,5 @@
 const { getCartBYUserId } = require("../repositories/cartRepo");
-const { createNewOrder } = require("../repositories/orderRepo");
+const { createNewOrder, getOrdersByUserId, getOrderById, updateOrderStatus } = require("../repositories/orderRepo");
 const { findUser } = require("../repositories/userRepository");
 const BadRequestError = require("../utils/badRequest");
 const InternalServerError = require("../utils/InternalServerError");
@@ -18,7 +18,7 @@ async function createOrder(userId, paymentMethod){
     
     // if no items in the cart then no order can be placed
     if(cart.items.length == 0){
-        throw new BadRequestError('Cart is empty, please add some items in the cart');
+        throw new BadRequestError(["Cart is empty, please add some items in the cart"]);
     }
 
     // start building new orderObject
@@ -49,6 +49,33 @@ async function createOrder(userId, paymentMethod){
     return order;
 }
 
+async function getAllOrdersCreatedByUser(userId){
+    const orders = await getOrdersByUserId(userId);
+    if(!orders){
+        throw new NotFoundError("Orders");
+    }
+    return orders;
+}
+
+async function getOrderDetailsById(orderId){
+    const order = await getOrderById(orderId);
+    if(!order){
+        throw new NotFoundError("Order");
+    }   
+    return order;
+}
+
+async function updateOrder(orderId, status){
+    const order = await updateOrderStatus(orderId,status);
+    if(!order){
+        throw new NotFoundError("Order");
+    }
+    return order;
+}
+
 module.exports = {
-    createOrder
+    createOrder,
+    getAllOrdersCreatedByUser,
+    getOrderDetailsById,
+    updateOrder
 }

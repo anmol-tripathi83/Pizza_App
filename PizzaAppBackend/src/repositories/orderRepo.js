@@ -1,5 +1,6 @@
 const Order = require("../schema/orderSchema");
 const BadRequestError = require("../utils/badRequest");
+const InternalServerError = require("../utils/InternalServerError");
 
 async function createNewOrder(orderDetails){
     try{
@@ -18,6 +19,42 @@ async function createNewOrder(orderDetails){
     }
 }
 
+// function to fetch all orders by user using their userId
+async function getOrdersByUserId(userId){
+    try{
+        const orders = await Order.find({user: userId}).populate('items.product');
+        return orders;
+    } catch(error){
+        console.log(error);
+        throw new InternalServerError();
+    }
+}
+
+// function to fetch specific order using their orderId
+async function getOrderById(orderId){
+    try{
+        const order = await Order.findById(orderId).populate('items.product');
+        return order;
+    } catch(error){
+        console.log(error);
+        throw new InternalServerError();
+    }
+}
+   
+async function updateOrderStatus(orderId, status){
+    try{
+        const order = await Order.findByIdAndUpdate(orderId, {status: status}, {new: true});  // new: true because of now after updation the updated order will return instead of unupdated 
+        return order;
+    } catch(error){
+        console.log(error);
+        throw InternalServerError();
+    }
+
+}
+
 module.exports = {
-    createNewOrder
+    createNewOrder,
+    getOrdersByUserId,
+    getOrderById,
+    updateOrderStatus
 }
