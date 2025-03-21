@@ -2,7 +2,7 @@ const mongoose = require("mongoose");
 const cloudinary  = require('../config/cloudinaryConfig');
 const Product = require('../schema/productSchema');
 const BadRequestError = require('../utils/badRequest');
-const InternalServerError = require('../utils/InternalServerError');
+const InternalServerError = require('../utils/internalServerError');
 const NotFoundError = require('../utils/notFoundError');
 
 // interacting with the database(creating a new product with following product details which is in productDetails object)

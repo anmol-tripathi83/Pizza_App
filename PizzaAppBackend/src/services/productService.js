@@ -1,7 +1,7 @@
 const cloudinary = require('../config/cloudinaryConfig');
 const fs = require('fs/promises');
 const ProductRepository = require('../repositories/productRepo');
-const InternalServerError = require('../utils/InternalServerError');
+const InternalServerError = require('../utils/internalServerError');
 const NotFoundError = require('../utils/notFoundError');
 
 // It will create brand new product it the database

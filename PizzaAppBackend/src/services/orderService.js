@@ -2,7 +2,7 @@ const { getCartBYUserId } = require("../repositories/cartRepo");
 const { createNewOrder, getOrdersByUserId, getOrderById, updateOrderStatus } = require("../repositories/orderRepo");
 const { findUser } = require("../repositories/userRepository");
 const BadRequestError = require("../utils/badRequest");
-const InternalServerError = require("../utils/InternalServerError");
+const InternalServerError = require("../utils/internalServerError");
 const NotFoundError = require("../utils/notFoundError");
 const { clearCart } = require("./cartService");
 

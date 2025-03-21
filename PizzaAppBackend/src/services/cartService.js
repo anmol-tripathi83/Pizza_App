@@ -2,7 +2,7 @@ const { getCartBYUserId } = require("../repositories/cartRepo");
 const { getProductById } = require("../repositories/productRepo");
 const AppError = require("../utils/appError");
 const BadRequestError = require("../utils/badRequest");
-const InternalServerError = require("../utils/InternalServerError");
+const InternalServerError = require("../utils/internalServerError");
 const NotFoundError = require("../utils/notFoundError");
 
 async function getCart(userId){
