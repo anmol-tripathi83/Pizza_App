@@ -39,15 +39,6 @@ app.get('/ping', isLoggedIn, (req,res)=>{
     console.log(req.cookies);
     return res.json({message:"pong"});
 });
-
-// For checking the functioning of multer(uploader middleware) and learn how to upload image to cloudinary
-app.post('/photo', uploader.single('incomingFile') , async (req,res) =>{
-    console.log(req.file);
-    const result = await cloudinary.uploader.upload(req.file.path);   // cloudinary provide the function uploader.upload(path of image which is going to be uploaded in cloudinary) and it return an object(stored in result) also contain URL and many more property
-    console.log("result from cloudinary",result);
-    await fs.unlink(req.file.path);    // delete the image from the upload folder(to avoid bulyness of our project)
-    return res.json({ message: 'Ok'});
-});
       
 // localhost(127.0.0.1):3000 -> socket address(IP + port)
 app.listen(ServerConfig.PORT, async () =>{
