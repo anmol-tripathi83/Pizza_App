@@ -12,6 +12,7 @@ const uploader = require('./middleware/multerMiddleware');
 const cloudinary = require('./config/cloudinaryConfig');
 const fs = require("fs/promises");   // provide by nodejs to access file system(deleting the images in uploads folder)
 const ProductRouter = require('./routes/productRoute');
+const orderRouter = require('./routes/orderRoute');
 // const User = require('./schema/userSchema');     // for testing purpose
 
 //Express object(server object)
@@ -29,6 +30,7 @@ app.use('/users', userRouter);     // connects the user router to the server
 app.use('/carts',cartRouter);      // connects the cart router to the server
 app.use('/auth',authRouter);      // connects the auth router to the server
 app.use('/products',ProductRouter);    // connects the Product router to the server
+app.use('/orders',orderRouter);     // connects the order router to the server 
 
 // Tocheck above parser methods(json(), text() etc) works or not
 app.get('/ping', isLoggedIn, (req,res)=>{

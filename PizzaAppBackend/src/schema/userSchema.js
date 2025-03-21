@@ -42,6 +42,10 @@ const userSchema = new mongoose.Schema({
         type:String,
         enum: ["USER", "ADMIN"],
         default: "USER"
+    },
+    address: {
+        type: String,
+        trim: true,
     }
 },{
     timestamps : true       // it will automatically create property that is "createdAt" and "upadatedAt" this will automatically added in our defined schema as a property 
