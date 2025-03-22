@@ -1,5 +1,6 @@
 // file name is start with capital letter because of react recommend to name the file in such a way for the jsx componenets(Ui in reusable element)
 import CircleArrowRight from "../Components/Icons/CircleArrowRight";
+import PizzaImage from "../assets/Images/pizza2.png";
 
 function Home(){
     return (
@@ -29,6 +30,14 @@ function Home(){
                             <CircleArrowRight/>
                         </span>
                     </button>
+                </div>
+                <div>
+                    <img 
+                        src={PizzaImage} 
+                        alt="Pizza" 
+                        width={550}
+                        height={550}
+                    />
                 </div>
             </section>
         </div>
