@@ -33,7 +33,7 @@ app.use('/products',ProductRouter);    // connects the Product router to the ser
 app.use('/orders',orderRouter);     // connects the order router to the server 
 
 // Tocheck above parser methods(json(), text() etc) works or not
-app.get('/ping', isLoggedIn, (req,res)=>{
+app.get('/ping', (req,res)=>{
     // controller
     console.log(req.body);
     console.log(req.cookies);
