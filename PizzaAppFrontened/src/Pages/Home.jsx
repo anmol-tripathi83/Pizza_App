@@ -3,6 +3,9 @@ import CircleArrowRight from "../Components/Icons/CircleArrowRight";
 import PizzaImage from "../assets/Images/pizza2.png";
 import CookingImage from "../assets/Images/cooking1.png";
 import CheckBadgeStroke12 from "../Components/Icons/checkBadgeStroke12.jsx";
+import OrderFood from "../assets/Images/orderFood.png";
+import Pickup from "../assets/Images/pickup.png";
+import Enjoy from "../assets/Images/enjoy.png";
 
 function Home(){
     return (
@@ -54,33 +57,86 @@ function Home(){
                             className="rounded-lg"
                         />
                     </div>
-                    <div className="flex flex-col flex-wrap text-center lg:py-6 lg:w-1/2 lg:pl-12 lg:text-left">
-                        <div className="flex flex-col items-center lg:items-start">
-                            <div>
-                                <h2 className="mb-2 text-5xl font-extrabold text-transparent title-font bg-gradient-to-r from-orange-600 to-orange-400 bg-clip-text">
-                                    Cooked by the best <br/> chefs in the world!
-                                </h2>
-                                <p className="text-base leading-relaxed text-[#687280]">
-                                    There are many benefits regarding to that but the main ones are:
-                                </p>
+
+                    <div className="flex flex-col flex-wrap text-center lg:py-6 lg:w-3/4 lg:pl-1 lg:text-left">
+                        <div className="flex flex-col items-center">
+                            <div className="flex flex-col items-center lg:items-start">
+                                <div>
+                                    <h2 className="mb-2 text-5xl font-extrabold text-transparent title-font bg-gradient-to-r from-orange-600 to-orange-400 bg-clip-text">
+                                        Cooked by the best <br/> chefs in the world!
+                                    </h2>
+                                    <p className="text-base leading-relaxed text-[#687280]">
+                                        There are many benefits regarding to that but the main ones are:
+                                    </p>
+                                </div>
+                            </div>
+                            {/**Benefits points */}
+                            <div className="p-1">
+                                <div className="flex items-center h-full p-2 text-2xl rounded">
+                                    <CheckBadgeStroke12 className="text-green-500 w-10 h-10 mr-2"/>
+                                    <span className="font-bold title-font">Order Pizza, Effortlessly</span>
+                                </div>
+                            </div>
+                            <div className="p-1">
+                                <div className="flex items-center h-full p-2 text-2xl rounded">
+                                    <CheckBadgeStroke12 className="text-green-500 w-10 h-10 mr-2"/>
+                                    <span className="font-bold title-font">Food hygeine guaranteed</span>
+                                </div>
+                            </div>
+                            <div className="p-1">
+                                <div className="flex items-center h-full p-2 text-2xl rounded">
+                                    <CheckBadgeStroke12 className="text-green-500 w-10 h-10 mr-2"/>
+                                    <span className="font-bold title-font">Delicious Pizza, Delivered Fast</span>
+                                </div>
                             </div>
                         </div>
-                        <div className="w-full p-1">
-                            <div className="flex items-center h-full p-2 text-2xl rounded">
-                                <CheckBadgeStroke12 className="text-green-500 w-10 h-10 mr-2"/>
-                                <span className="font-bold title-font">Delicious Pizza, Delivered Fast</span>
+
+                        {/**orderFood, pickupFood, EnjoyFood Icons*/}
+                        <div className="px-5 py-4 mx-auto">
+                            <div className="flex justify-center py-4">
+                                <div className="inline-flex w-16 h-1 bg-yellow-500 rounded-full"></div>
                             </div>
-                        </div>
-                        <div className="w-full p-1">
-                            <div className="flex items-center h-full p-2 text-2xl rounded">
-                                <CheckBadgeStroke12 className="text-green-500 w-10 h-10 mr-2"/>
-                                <span className="font-bold title-font">Food hygeine guaranteed</span>
-                            </div>
-                        </div>
-                        <div className="w-full p-1">
-                            <div className="flex items-center h-full p-2 text-2xl rounded">
-                                <CheckBadgeStroke12 className="text-green-500 w-10 h-10 mr-2"/>
-                                <span className="font-bold title-font">Order Pizza, Effortlessly</span>
+
+                            <div className="flex flex-wrap space-y-6 md:space-y-0">
+                                <div className="flex flex-col items-center text-center p-4 md:w-1/3">
+                                    <div className="inline-flex items-center justify-center flex-shrink-0 w-20 h-20 mb-5 bg-yellow-100 rounded-full">
+                                        <img src={OrderFood} alt="OrderFood"/>
+                                    </div>
+                                    <div className="flex-grow">
+                                        <h2 className="mb-3 text-lg font-bold text-gray-900 title-font">
+                                            order Food
+                                        </h2>
+                                        <p>
+                                            As easy as 1, 2, 3. Just select your favourite pizza and place your order.
+                                        </p>
+                                    </div>
+                                </div>
+                                <div className="flex flex-col items-center text-center p-4 md:w-1/3">
+                                    <div className="inline-flex items-center justify-center flex-shrink-0 w-20 h-20 mb-5 bg-yellow-100 rounded-full">
+                                        <img src={Pickup} alt="PickupFood"/>
+                                    </div>
+                                    <div className="flex-grow">
+                                        <h2 className="mb-3 text-lg font-bold text-gray-900 title-font">
+                                            Pickup Food
+                                        </h2>
+                                        <p>
+                                            Pick up your order from the nearest store or get it delivered to your doorstep.
+                                        </p>
+                                    </div>
+                                </div>
+                                <div className="flex flex-col items-center text-center p-4 md:w-1/3">
+                                    <div className="inline-flex items-center justify-center flex-shrink-0 w-20 h-20 mb-5 bg-yellow-100 rounded-full">
+                                        <img src={Enjoy} alt="EnjoyFood"/>
+                                    </div>
+                                    <div className="flex-grow">
+                                        <h2 className="mb-3 text-lg font-bold text-gray-900 title-font">
+                                            Enjoy Food
+                                        </h2>
+                                        <p>
+                                            As soon as you get your order, enjoy the delicious pizza with your loved ones.
+                                        </p>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
