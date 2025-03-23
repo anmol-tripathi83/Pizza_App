@@ -1,14 +1,14 @@
+import { Route, Routes } from 'react-router-dom';
 import './App.css'
-import Layout from './Layouts/Layout';
 import Home from './Pages/Home';
 
 function App() {
 
   return (
       <div>
-        <Layout>       {/** For Navbar and footer */}
-          <Home/>
-        </Layout>
+        <Routes>
+          <Route path="/" element={ <Home/> } />
+        </Routes>
       </div>
   );
 }
