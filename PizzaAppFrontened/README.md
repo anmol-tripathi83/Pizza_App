@@ -21,3 +21,4 @@ https://undraw.co/illustrations
 
 # react-hot-toast library for the notification pop up(we are using when user are not entering all the required field in the signup or login page)
 
+# Container(what data is shown to the user(logic part)) and presentational Components(how data is shown to the user(UI part)) => single responsibility principle should be applied throughtout the application , LINK : (patterns.dev/react/presentational-container-pattern/) 
