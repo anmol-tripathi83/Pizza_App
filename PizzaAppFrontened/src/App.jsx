@@ -14,7 +14,7 @@ function App() {
           <Route path="/auth/signup" element={<SignUp/>} />
           <Route path="/auth/login" element={<Login/>} />
 
-
+          {/**When all above pagenot work then this Not found page directed */}
           <Route path="*" element={<NotFound/>} />
         </Routes>
       </div>

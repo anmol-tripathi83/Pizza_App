@@ -1,8 +1,8 @@
 import { useNavigate } from "react-router-dom";
 
+// when random api hit which is not in out api list then page not found or error 404 will opened
 function NotFound() {
 
-    // 
     const navigate = useNavigate(); // React hook  which programitcally navigate to the previous page
 
     return (
