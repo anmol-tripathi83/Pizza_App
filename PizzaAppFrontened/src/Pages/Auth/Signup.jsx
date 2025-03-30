@@ -1,3 +1,5 @@
+import { Link } from "react-router-dom";
+
 function Signup() {
     return (
         <>
@@ -148,7 +150,7 @@ function Signup() {
                         <h2 className="mb-5 text-lg font-medium text-gray-900 title-font">Sign up</h2>
 
                         <div className="relative mb-4">
-                            <label htmlFor="firstName" className="text-sm leading-7 text-gray-600">First Name</label>
+                            <label htmlFor="firstName" className="text-sm leading-7 text-gray-600">First Name <span className="text-red-500">*</span></label>
                             <input 
                                 type="text" 
                                 id="firstName" 
@@ -198,7 +200,7 @@ function Signup() {
                             Create Account
                         </button>
 
-                        <p className="mt-3 text-xs text-gray-500">Already have an account? <a href="/login" className="text-yellow-500">Login</a></p>
+                        <p className="mt-3 text-xs text-gray-500">Already have an account? <Link to="/auth/login" className="text-yellow-500">Login</Link></p>
                     </form>
                 </div>
             </section>

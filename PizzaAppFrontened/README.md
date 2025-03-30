@@ -13,3 +13,6 @@ If you are developing a production application, we recommend using TypeScript an
 
 # guide to add tailwind with css
 https://v3.tailwindcss.com/docs/guides/vite
+
+# free Svg Illustration : 
+https://undraw.co/illustrations
