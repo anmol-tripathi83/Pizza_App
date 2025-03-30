@@ -1,6 +1,52 @@
+import { useState } from "react";
 import { Link } from "react-router-dom";
+import toast from "react-hot-toast";
 
 function Signup() {
+    const [signupState, setSignUpState] = useState({
+        firstName: '',
+        email: '',
+        mobileNumber: '',
+        password: '',
+    });
+
+    function handleUserInput(e){
+        const {name, value} = e.target;
+        setSignUpState({
+            ...signupState,
+            [name]: value
+
+        });
+    }
+
+    function handleFormSubmit(e){
+        e.preventDefault();  // prevent the form  from reloading the page
+        console.log(signupState);
+
+        // Add validation for the form input
+        if(!signupState.email || !signupState.mobileNumber || !signupState.password || !signupState.firstName){
+            toast.error("Missing values from the form");
+            return;
+        }
+
+        // FirstName validation
+        if(signupState.firstName.length < 5 || signupState.firstName.length > 20){
+            toast.error("First name should be atleast 5 character and maximum 20 character long")
+        }
+
+        // Email Validation
+        const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+        if(!emailRegex.test(signupState.email)){
+            toast.error("Invalid email");
+        }
+
+        // MobileNumber validation: lenght should be between 10 to 12 digit long
+        if(signupState.mobileNumber.length > 12 || signupState.mobileNumber.length < 10){
+            toast.error("Mobile number should be between 10-12 characters");
+        }
+
+    }
+
     return (
         <>
             <section className="text-gray-600 body-font">
@@ -157,6 +203,8 @@ function Signup() {
                                 id="firstName" 
                                 name="firstName" 
                                 required 
+                                // on change it will call handleUserInput and event object by default passes which contain many info about what event happened
+                                onChange={handleUserInput}
                                 minLength={5}
                                 placeholder="John"
                                 className="w-full px-3 py-1 mt-2 text-base leading-8 text-gray-700 transition-colors duration-200 ease-in-out border border-gray-300 rounded outline-noe focus:border-yellow-500 focus:ring-2 focus:ring-yellow-200" />
@@ -169,6 +217,7 @@ function Signup() {
                                 id="email" 
                                 name="email" 
                                 required 
+                                onChange={handleUserInput}
                                 placeholder="John@example.com"
                                 className="w-full px-3 py-1 mt-2 text-base leading-8 text-gray-700 transition-colors duration-200 ease-in-out border border-gray-300 rounded outline-noe focus:border-yellow-500 focus:ring-2 focus:ring-yellow-200" />
                         </div>
@@ -180,6 +229,7 @@ function Signup() {
                                 id="mobileNumber" 
                                 name="mobileNumber" 
                                 required 
+                                onChange={handleUserInput}
                                 maxLength={12}
                                 placeholder="Enter 10 digit mobile number"
                                 className="w-full px-3 py-1 mt-2 text-base leading-8 text-gray-700 transition-colors duration-200 ease-in-out border border-gray-300 rounded outline-noe focus:border-yellow-500 focus:ring-2 focus:ring-yellow-200" />
@@ -192,11 +242,13 @@ function Signup() {
                                 id="password" 
                                 name="password" 
                                 required 
+                                onChange={handleUserInput}
                                 placeholder="Enter your password"
                                 className="w-full px-3 py-1 mt-2 text-base leading-8 text-gray-700 transition-colors duration-200 ease-in-out border border-gray-300 rounded outline-noe focus:border-yellow-500 focus:ring-2 focus:ring-yellow-200" />
                         </div>
 
                         <button 
+                            onClick={handleFormSubmit}
                             className="w-full px-8 py-2 text-lg text-white bg-yellow-500 border-0 rounded focus:outline-none hover:bg-yellow-600">
                             Create Account
                         </button>

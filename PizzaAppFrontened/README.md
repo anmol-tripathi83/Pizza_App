@@ -18,3 +18,6 @@ https://v3.tailwindcss.com/docs/guides/vite
 https://undraw.co/illustrations
 
 # For sms otp verification is done by using twillio sms
+
+# react-hot-toast library for the notification pop up(we are using when user are not entering all the required field in the signup or login page)
+
