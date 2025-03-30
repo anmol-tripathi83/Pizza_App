@@ -200,7 +200,7 @@ function Signup() {
                             Create Account
                         </button>
 
-                        <p className="mt-3 text-xs text-gray-500">Already have an account? <Link to="/auth/login" className="text-yellow-500">Login</Link></p>
+                        <p className="mt-3 text-xs text-gray-500">Already have an account? <Link to="/auth/login" className="text-yellow-500">Login</Link></p>    {/** Link tag provided by React which helps to navigate in diffrent pages*/}
                     </form>
                 </div>
             </section>

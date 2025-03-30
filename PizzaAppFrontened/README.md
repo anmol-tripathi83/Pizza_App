@@ -16,3 +16,5 @@ https://v3.tailwindcss.com/docs/guides/vite
 
 # free Svg Illustration : 
 https://undraw.co/illustrations
+
+# For sms otp verification is done by using twillio sms
