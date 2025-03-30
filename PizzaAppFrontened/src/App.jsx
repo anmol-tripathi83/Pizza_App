@@ -4,6 +4,7 @@ import Home from './Pages/Home';
 import SignUp from './Pages/Auth/Signup';
 import Login from './Pages/Auth/Login';
 import NotFound from './Pages/NotFound';
+import Denied from './Pages/Denied';
 
 function App() {
 
@@ -11,6 +12,7 @@ function App() {
       <div>
         <Routes>
           <Route path="/" element={ <Home/> } />
+          <Route path="/denied" element={ <Denied/> } />
           <Route path="/auth/signup" element={<SignUp/>} />
           <Route path="/auth/login" element={<Login/>} />
 
