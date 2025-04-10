@@ -3,6 +3,7 @@ import toast from "react-hot-toast";
 import SignupPresentation from "./SignupPresentation";
 import { useDispatch } from "react-redux";
 import { createAccount } from "../../Redux/Slices/AuthSlice";
+import { useNavigate } from "react-router-dom";
 
 // Container components for the Signup page   [container + Presentational way of writing code => good practice]
 function Signup() {
@@ -11,6 +12,8 @@ function Signup() {
     // but Redux toolkit provided a best to do it and the best part is that we can manage the state(for that we have dispatch the action in redux) on the basis of response coming from Api 
     // => redux Thunks(a piece of code that does some delayed work) => help to build the asynchronous action and when it finished then we update the state
     const dispatch = useDispatch();
+
+    const navigate = useNavigate();   // used to go back to login page if user is registered we want he or she login with those registered details
 
     const [signUpState, setSignUpState] = useState({
         firstName: '',
@@ -56,6 +59,12 @@ function Signup() {
 
         const apiResponse = await dispatch(createAccount(signUpState));
         console.log("API response is ",apiResponse);
+
+        // when user succesfully signuped then navigate to login page
+        if(apiResponse.payload.data.success){
+            navigate('/auth/login');
+        }
+
     }
 
     return (
