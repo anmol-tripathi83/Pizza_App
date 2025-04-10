@@ -55,6 +55,18 @@ const AuthSlice = createSlice({
     name: 'auth',   //  jo iska name doge wo state ka name ban jayega
     initialState,
     reducers: {},   // As of now we are not adding reducer yet because we have to fetch the data then we have to update the state
+    extraReducers: (builder) =>{       // we write here those reducer which are coming from async thunk (builder object=> reduct will automatically pass this object)
+        builder.addCase(login.fulfilled, (state, action)=>{
+            // reducer which will execute when the login thunk is fullfilled
+            state.isLoggedIn = true,
+            state.role = action?.payload?.data?.data?.userRole,    // ? these are check if not have then set undefined
+            state.data = action?.payload?.data?.data?.userData
+
+            localStorage.setItem('isLoggedIn', true);              // to persist the these condn in local storage so that after machine closed(or tab closed) user remains logged in
+            localStorage.setItem('role', action?.payload?.data?.data?.userRole);
+            localStorage.setItem('data', JSON.stringify(action?.payload?.data?.data?.userData));
+        });
+    }
 });
 
 export default AuthSlice.reducer;

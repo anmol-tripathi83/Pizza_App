@@ -7,7 +7,7 @@ async function login(req, res){
         const response = await loginUser(loginPayload);
         
         // Now sending token from httpOnly cookie to the user to use it for further process he wants such as order placing which require token to send it for authorization
-        res.cookie("authToken", response, {
+        res.cookie("authToken", response.token, {
             httpOnly: true,
             secure: false,
             maxAge: 7 * 24 * 60 * 60 * 1000           // 7 days converted into msec
@@ -16,7 +16,10 @@ async function login(req, res){
         return res.status(200).json({
             success: true,
             message: "Logged in Successfully",
-            data: {},
+            data: {
+                userRole: response.userRole,
+                userData: response.userData
+            },
             error: {}
         });
     } catch(error){
