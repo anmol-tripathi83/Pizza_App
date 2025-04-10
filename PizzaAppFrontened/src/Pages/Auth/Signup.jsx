@@ -12,7 +12,7 @@ function Signup() {
     // => redux Thunks(a piece of code that does some delayed work) => help to build the asynchronous action and when it finished then we update the state
     const dispatch = useDispatch();
 
-    const [signupState, setSignUpState] = useState({
+    const [signUpState, setSignUpState] = useState({
         firstName: '',
         email: '',
         mobileNumber: '',
@@ -22,7 +22,7 @@ function Signup() {
     function handleUserInput(e){
         const {name, value} = e.target;
         setSignUpState({
-            ...signupState,
+            ...signUpState,
             [name]: value
 
         });
@@ -30,31 +30,31 @@ function Signup() {
 
     async function handleFormSubmit(e){
         e.preventDefault();  // prevent the form  from reloading the page
-        console.log(signupState);
+        console.log(signUpState);
 
         // Add validation for the form input
-        if(!signupState.email || !signupState.mobileNumber || !signupState.password || !signupState.firstName){
+        if(!signUpState.email || !signUpState.mobileNumber || !signUpState.password || !signUpState.firstName){
             toast.error("Missing values from the form");
             return;
         }
 
         // FirstName validation
-        if(signupState.firstName.length < 5 || signupState.firstName.length > 20){
+        if(signUpState.firstName.length < 5 || signUpState.firstName.length > 20){
             toast.error("First name should be atleast 5 character and maximum 20 character long")
         }
 
         // Email Validation
         const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
-        if(!emailRegex.test(signupState.email)){
+        if(!emailRegex.test(signUpState.email)){
             toast.error("Invalid email");
         }
 
         // MobileNumber validation: lenght should be between 10 to 12 digit long
-        if(signupState.mobileNumber.length > 12 || signupState.mobileNumber.length < 10){
+        if(signUpState.mobileNumber.length > 12 || signUpState.mobileNumber.length < 10){
             toast.error("Mobile number should be between 10-12 characters");
         }
 
-        const apiResponse = await dispatch(createAccount(signupState));
+        const apiResponse = await dispatch(createAccount(signUpState));
         console.log("API response is ",apiResponse);
     }
 

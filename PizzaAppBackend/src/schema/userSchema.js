@@ -12,7 +12,7 @@ const userSchema = new mongoose.Schema({
     },
     lastName : {
         type : String,
-        required : [true, "Last Name is required"],           // first input is in array is telling that this property is req field or mandatory to fill. whereas second element defines that whenever user doesn't fill this field then that message used as an error displayed in the screen
+        // required : [true, "Last Name is required"],           // first input is in array is telling that this property is req field or mandatory to fill. whereas second element defines that whenever user doesn't fill this field then that message used as an error displayed in the screen
         minlength : [5, "Last Name must be atleast 5 charcter long"],
         lowercase : true,
         trim: true,       // if the user gives extra spaces then it will automatically remove it

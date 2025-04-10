@@ -1,22 +1,25 @@
 const express = require('express');
 // Now a days body parser is pre installed in express dependencies(instead express also providing these function to totally deprecate the use of bodyparser)
 const cookieParser = require("cookie-parser");         // is used to read the cookie using request body(because needed for the further process lets say after login we have to place an order therefore we have to send the token therefore token can be accessed using req object)
+const cors = require('cors');
 
 const ServerConfig = require('./config/serverConfig');
 const connectDB = require('./config/dbConfig');
 const userRouter = require('./routes/userRoute');
 const cartRouter = require('./routes/cartRoute');
 const authRouter = require('./routes/authRoute');
-const { isLoggedIn } = require('./validation/authValidator');
-const uploader = require('./middleware/multerMiddleware');
-const cloudinary = require('./config/cloudinaryConfig');
-const fs = require("fs/promises");   // provide by nodejs to access file system(deleting the images in uploads folder)
 const ProductRouter = require('./routes/productRoute');
 const orderRouter = require('./routes/orderRoute');
 // const User = require('./schema/userSchema');     // for testing purpose
 
 //Express object(server object)
 const app = express();
+
+// configuring the cors(cross orgin resource sharing)
+app.use(cors({
+    origin: 'http://localhost:5173',  // allow to server to accept request from different origin
+    credentials: true,  // allow session cookie from browser to pass through
+}));    // request(as user thorughtout the world(not having same IP)) which is not having same IP as that of server which gives cross origin request blocked therefore for that we have to enable cors in backened
 
 app.use(cookieParser());    // this middleware helps to start reading cookies
 // now due to this deserializer this project start the reading json,text and urlencoded coming in the req body 

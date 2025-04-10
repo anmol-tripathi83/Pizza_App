@@ -1,4 +1,5 @@
 const { registerUser } = require("../services/userService");
+const AppError = require("../utils/appError");
 
 async function createUser(req, res){
     // console.log("Create user: controller called");
@@ -16,6 +17,14 @@ async function createUser(req, res){
             error : {}
         });
     } catch(error){                   // if not created the user due to some error(server error, client error etc)
+        if(error instanceof AppError){    // error from handled error
+            return res.status(error.statusCode).json({
+                success: false,
+                message: error.message,
+                data: {},
+                error: error
+            });
+        }
         return res.status(error.statusCode).json({
             message : error.reason,
             success : false,
