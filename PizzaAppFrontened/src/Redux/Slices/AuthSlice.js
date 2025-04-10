@@ -11,7 +11,7 @@ const initialState = {
     data: JSON.parse(localStorage.getItem('data')) || {},   // As data is stored in key-value pair in localStorage in the form of string and we want to get in the form of object therefore we are using JSON.parse function
 };
 
-// Now we call this thunk which will give an asynchronous action(delayed action)
+// Now we call this thunk for signup which will give an asynchronous action(delayed action)
 export const createAccount = createAsyncThunk('/auth/createAccount', async (data) =>{
     console.log("Incoming data to the thunk", data);
     try{
@@ -31,11 +31,30 @@ export const createAccount = createAsyncThunk('/auth/createAccount', async (data
     }
 });
 
+// Now we call this thunk for login which will give an asynchronous action(delayed action)
+export const login = createAsyncThunk('/auth/login', async (data) =>{
+    console.log("Incoming data to the thunk", data);
+    try{
+        const response = axiosInstance.post('/auth/login', data);
+        toast.promise(response, {          // promise based toast(see we have removed await form above response because it handles it) 
+            success: (resolvedPromise) => {
+                return resolvedPromise?.data?.message;
+            },
+            loading: 'Hold back tight, we are registering your id... ',
+            error: 'Ohh No!, Something went worng. Please try again.',
+        });
+        const apiResponse = await response;
+        return apiResponse;
+    } catch(error){
+        console.log("Error in thunk", error);
+    }
+});
+
 // Now start creating the Slice(initialState and reducers are in one place called Slice)
 const AuthSlice = createSlice({
     name: 'auth',   //  jo iska name doge wo state ka name ban jayega
     initialState,
-    reducers: {},   // As of now we are not adding reducer yet because we have to fetch fetching the data then we have to update the state
+    reducers: {},   // As of now we are not adding reducer yet because we have to fetch the data then we have to update the state
 });
 
 export default AuthSlice.reducer;
