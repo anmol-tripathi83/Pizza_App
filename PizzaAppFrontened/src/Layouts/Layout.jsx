@@ -1,7 +1,7 @@
 import { useDispatch, useSelector } from "react-redux";
 import Pizzalogo from "../assets/Images/pizza-app_logo.png";
 import Footer from "../Components/Footer";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { logout } from "../Redux/Slices/AuthSlice";
 
 // eslint-disable-next-line react/props-types
@@ -10,6 +10,7 @@ function Layout({children}){    // children props
     // => if user is loggined the  we will show logout buttun in tha navbatr (accessing state value using useSelector hook)
     const isLoggedIn = useSelector((state) => state.auth.isLoggedIn);
     const dispatch = useDispatch();
+    const navigate = useNavigate();
 
     async function handleLogout(e){
         e.preventDefault;
@@ -21,7 +22,9 @@ function Layout({children}){    // children props
         <div>
             {/** Navbar */}
             <nav className="flex items-center justify-around h-16 text-[#687280] font-mono border-none shadow-md">
-                <div className="flex items-center justify-center">
+                <div className="flex items-center justify-center"
+                    onClick={() => navigate('/')}
+                >
                     <p>Pizza App</p>
                     <img src={Pizzalogo} alt="Pizza logo" width={70} height={70} />
                 </div>
