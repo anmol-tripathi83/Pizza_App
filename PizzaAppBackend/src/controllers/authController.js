@@ -33,6 +33,9 @@ async function login(req, res){
 }
 
 async function logout(req,res){
+    
+    console.log("Cookies from frontend",req.cookies);
+
     res.cookie("authToken", "", {
         httpOnly: true,
         secure: false,
