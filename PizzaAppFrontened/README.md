@@ -22,3 +22,6 @@ https://undraw.co/illustrations
 # react-hot-toast library for the notification pop up(we are using when user are not entering all the required field in the signup or login page)
 
 # Container(what data is shown to the user(logic part)) and presentational Components(how data is shown to the user(UI part)) => single responsibility principle should be applied throughtout the application , LINK : (patterns.dev/react/presentational-container-pattern/) 
+
+# Common flow to use thunk and to manage state
+=> let say ek web page hoga, jo bhi data tumhe backend me bhejna h use tum page k local state me collect karoge then wha se dispatch karoge ek action me jo ki(action) define hoga slices me agr wo action async h to async thunk bna k define karoge wo thunk jo bhi internal api hit karega aur ek response bhejega(res me whi payload object bhejega joki tum apne action function me dete ho) aur yhi async thunk k response k basis pe agr ye fullfill ho gya to tum state ko kaise update karna chahte ho to uske liye builder.addCase then ek response hume milega page me uske basis pe aap kya karna chahte h navigate ye khuch aur....
