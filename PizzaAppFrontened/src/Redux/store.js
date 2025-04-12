@@ -13,5 +13,9 @@ export const store = configureStore({
         product: ProductSliceReducer,    // step-3
         cart: CartSliceReducer,
     },
-    devTools: true
+    devTools: true,
+    middleware: getDefaultMiddleware =>   // to solve redux error of non serilizble value seen in action=> serialization error
+        getDefaultMiddleware({
+        serializableCheck: false,
+    }),
 });
