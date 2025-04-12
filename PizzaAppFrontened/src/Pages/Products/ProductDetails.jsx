@@ -3,12 +3,34 @@ import { useDispatch } from "react-redux";
 import { useParams } from "react-router-dom";
 import { getProductDetails } from "../../Redux/Slices/ProductSlice";
 import Layout from "../../Layouts/Layout";
+import { addProductToCart, getCartDetails, removeProductFromCart } from "../../Redux/Slices/CartSlice";
 
 // A page for showing the productDetails when the product clicked
 function ProductDetails(){
     const { productId } = useParams();    // it will access the id from params provided by react dom
     const dispatch = useDispatch();
     const [productDetails, setProductDetails] = useState({});
+    const [isInCart, setIsInCart] = useState(false);  // this var will tell us that current product is in cart or not
+    
+    // function to handle the addition of product to the cart on clicking add product btn
+    async function handleCart(){
+        // add product to Cart
+        const response = await dispatch(addProductToCart(productId));
+        if(response?.payload?.data?.success){     // if product is added successfully
+            setIsInCart(true);
+            dispatch(getCartDetails());  // fetch cart details and update state
+        }
+    }
+    
+    // function to handle the reduction of product from the cart on clicking remove product btn
+    async function handleRemove(){
+        // remove product from the Cart
+        const response = await dispatch(removeProductFromCart(productId));
+        if(response?.payload?.data?.success){     // if product is added successfully
+            setIsInCart(false);
+            dispatch(getCartDetails());  // fetch cart details and update state  // o need to await here untill unless you want to use the response
+        }
+    }
 
     async function fetchProductDetails(){
         const details = await dispatch(getProductDetails(productId));
@@ -134,22 +156,22 @@ function ProductDetails(){
                                 <span className="text-2xl font-medium text-gray-900 title-font">
                                     ₹{productDetails?.price}
                                 </span>
-
-                                {/* {isInCart ? (
+                                {/** if isInCart then remove btn appear otherwise vice verse */}
+                                {isInCart ? (    
                                     <button
-                                    className="flex px-6 py-2 ml-auto text-white bg-yellow-500 border-0 rounded focus:outline-none hover:bg-yellow-600"
-                                    onClick={() => handleRemove(productId)}
+                                        className="flex px-6 py-2 ml-auto text-white bg-yellow-500 border-0 rounded focus:outline-none hover:bg-yellow-600"
+                                        onClick={() => handleRemove(productId)}
                                     >
-                                    Remove from cart
+                                        Remove from cart
                                     </button>
                                 ) : (
                                     <button
-                                    className="flex px-6 py-2 ml-auto text-white bg-yellow-500 border-0 rounded focus:outline-none hover:bg-yellow-600"
-                                    onClick={handleCart}
+                                        className="flex px-6 py-2 ml-auto text-white bg-yellow-500 border-0 rounded focus:outline-none hover:bg-yellow-600"
+                                        onClick={handleCart}
                                     >
-                                    Add to Cart
+                                        Add to Cart
                                     </button>
-                                )} */}
+                                )}
                             </div>
                         </div>
                     </div>
