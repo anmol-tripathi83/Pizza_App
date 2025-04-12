@@ -10,6 +10,7 @@ import Layout from "../Layouts/Layout.jsx";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 import { getAllProducts } from "../Redux/Slices/ProductSlice.js";
+import { Link } from "react-router-dom";
 
 function Home(){
     // step-5: dispatch the getAllproduct thunk now step-6 is on ProductSlice.js => to store the loaded products in a state using extraReducer
@@ -158,8 +159,42 @@ function Home(){
                     </div>
                 </div>
             </section>
-
-            {productsData.map((product) => <div key={product._id}> {product.productName} </div>)}
+            {/** Products list => concept of pagination -> eventhough you can implement that only letsay 20 products will show and there is load more btn which will load more 20 product this can be done using mangoose filters properties such as limit() property which can apply in the backened while finding all products and there is skip() property i.e skip(20) means after skipping 20 products all get fetched*/}
+            <div className="mx-auto">
+                <div className="flex flex-wrap justify-center">
+                    {productsData.map((item, key) =>{
+                        return (
+                            item.inStock && (
+                                <div className="p-4 md:w-1/3" key={item._id}>       {/** Key property to avoid re redering in list */}
+                                    <Link to={`/product/${item._id}`}>
+                                        <div className="overflow-hidden border rounded-lg border-opacity-60">
+                                            <img 
+                                                src={item.productImage} 
+                                                alt="Pizza Image"
+                                                className="object-cover object-center w-full lg:h-48 md:h-36"
+                                            />
+                                            <div className="p-6 border">
+                                                <h2 className="text-xs font-medium tracking-widest text-gray-400 title-font">
+                                                    {item.category}
+                                                </h2>
+                                                <h1 className="mb-3 text-lg font-medium text-gray-900 title-font">
+                                                    {item.productName}
+                                                </h1>
+                                                <p className="mb-4 text-base leading-relaxed">
+                                                    {item.description}
+                                                </p>
+                                                <p className="text-lg font-medium text-gray-900 title-font">
+                                                    ${item.price}
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </Link>
+                                </div>
+                            )
+                        );
+                    })}
+                </div>
+            </div>
             
         </div>
         </Layout>    
