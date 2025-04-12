@@ -34,6 +34,17 @@ async function getProductById(productId){
     }
 }
 
+// function to get all products
+async function getAllProducts(){
+    try{
+        const products = await Product.find({});
+        return products;
+    } catch(error){
+        console.log(error);
+        throw new InternalServerError();  // DB se related issue
+    }
+}
+
 //fetching public id(for deleting) from image URL(cloudinary URL)
 const getPublicIdFromUrl = (url) => {
     const regex = /\/upload\/(?:v\d+\/)?(.+)\./;
@@ -78,5 +89,6 @@ async function deleteProductById(productId){
 module.exports = {
     createProduct,
     getProductById,
+    getAllProducts,
     deleteProductById
 };

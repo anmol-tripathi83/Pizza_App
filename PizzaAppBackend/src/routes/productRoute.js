@@ -5,7 +5,7 @@ const { isAdmin, isLoggedIn } = require('../validation/authValidator');
 const uploader = require('../middleware/multerMiddleware');
 
 const express = require('express');
-const { addProduct, getProduct, deleteProduct } = require('../controllers/productController');
+const { addProduct, getProduct, deleteProduct, getProducts } = require('../controllers/productController');
 
 
 // We have to initialise a router object to add routes in a new file
@@ -17,6 +17,10 @@ ProductRouter.post('/', isLoggedIn, isAdmin, uploader.single('productImage') ,ad
 
 // Get /products/:id
 ProductRouter.get('/:id', isLoggedIn, isAdmin, getProduct);
+
+// Get /products/
+ProductRouter.get('/', getProducts);
+
 // delete /products/:id
 ProductRouter.delete('/:id', isLoggedIn, isAdmin, deleteProduct);
 

@@ -7,8 +7,22 @@ import OrderFood from "../assets/Images/orderFood.png";
 import Pickup from "../assets/Images/pickup.png";
 import Enjoy from "../assets/Images/enjoy.png";
 import Layout from "../Layouts/Layout.jsx";
+import { useDispatch, useSelector } from "react-redux";
+import { useEffect } from "react";
+import { getAllProducts } from "../Redux/Slices/ProductSlice.js";
 
 function Home(){
+    // step-5: dispatch the getAllproduct thunk now step-6 is on ProductSlice.js => to store the loaded products in a state using extraReducer
+    const dispatch = useDispatch();
+    useEffect(() =>{
+        //this will be called when the component mounts
+        dispatch(getAllProducts());
+
+    }, []); // dependency arr empty that means this calls when first time page loads
+
+    // step-7 : accessing products state using useSelector hook
+    const { productsData } = useSelector((state) => state.product);
+
     return (
         <Layout>    {/**Navbar + footer */}
         <div>
@@ -144,6 +158,9 @@ function Home(){
                     </div>
                 </div>
             </section>
+
+            {productsData.map((product) => <div key={product._id}> {product.productName} </div>)}
+            
         </div>
         </Layout>    
     )
