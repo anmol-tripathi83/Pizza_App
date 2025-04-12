@@ -16,7 +16,7 @@ const ProductRouter = express.Router();
 ProductRouter.post('/', isLoggedIn, isAdmin, uploader.single('productImage') ,addProduct);      // uploader.single(key) process the key to which the image is sended from the frontened 
 
 // Get /products/:id
-ProductRouter.get('/:id', isLoggedIn, isAdmin, getProduct);
+ProductRouter.get('/:id', getProduct);
 
 // Get /products/
 ProductRouter.get('/', getProducts);

@@ -25,6 +25,23 @@ export const getAllProducts = createAsyncThunk('/products/getAll', async () =>{
     }
 });
 
+// Thunks for fetching details for simgle products
+export const getProductDetails = createAsyncThunk('/products/getDetails', async (id) =>{
+    try{
+        const product = axiosInstance.get(`/products/${id}`);
+        toast.promise(product, {
+            loading: 'Loading the product...',
+            error: "Something went wrong, Can't load product", 
+            success: 'Product loaded successfully'
+        });
+        const apiResponse = await product;
+        return apiResponse;
+    } catch(error){
+        console.log(error);
+        toast.error('Something went wrong');
+    }
+});
+
 // Step:2 now step 3 in store.js
 const productSlice = createSlice({
     name: 'product',
