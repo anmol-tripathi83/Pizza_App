@@ -1,5 +1,6 @@
 import { useDispatch, useSelector } from "react-redux";
 import Pizzalogo from "../assets/Images/pizza-app_logo.png";
+import CartIcon from "../assets/Images/cart.svg";
 import Footer from "../Components/Footer";
 import { Link, useNavigate } from "react-router-dom";
 import { logout } from "../Redux/Slices/AuthSlice";
@@ -9,11 +10,14 @@ function Layout({children}){    // children props
     // Reading the Logged in condn of user using state which we have maintained 
     // => if user is loggined the  we will show logout buttun in tha navbatr (accessing state value using useSelector hook)
     const isLoggedIn = useSelector((state) => state.auth.isLoggedIn);
+
+    const { cartsData } = useSelector((state) => state.cart);   // now want to implement a btn for cart in the navbar so that user can access his/her cart
+
     const dispatch = useDispatch();
     const navigate = useNavigate();
 
     async function handleLogout(e){
-        e.preventDefault;
+        e.preventDefault();
         // dispatch the logout action
         dispatch(logout());
     }
@@ -45,6 +49,7 @@ function Layout({children}){    // children props
                     </ul>
                 </div>
                 <div>
+                    {/** Implemented Login and logout btn */}
                     <ul className="flex gap-4">
                         <li className="hover:text-[#FF9110]">
                             {isLoggedIn ? (   
@@ -53,6 +58,17 @@ function Layout({children}){    // children props
                                 <Link to={'/auth/login'} >Login</Link>
                             )}
                         </li>
+
+                        {/** Implementing cart Icon */}
+                        {isLoggedIn && (
+                            <Link to={'/cart'}>   {/** when we clicked goes to another page which will show the cart details */}
+                                <li>
+                                    <img src={CartIcon} className='w-8 h-8 inline' />
+                                    {' '}
+                                    <p className='text-black inline'>{cartsData?.items?.length}</p>
+                                </li>
+                            </Link>
+                        )}
                     </ul>
                 </div>
             </nav>
