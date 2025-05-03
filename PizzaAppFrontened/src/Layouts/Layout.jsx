@@ -4,6 +4,8 @@ import CartIcon from "../assets/Images/cart.svg";
 import Footer from "../Components/Footer";
 import { Link, useNavigate } from "react-router-dom";
 import { logout } from "../Redux/Slices/AuthSlice";
+import { useEffect } from "react";
+import { getCartDetails } from "../Redux/Slices/CartSlice";
 
 // eslint-disable-next-line react/props-types
 function Layout({children}){    // children props
@@ -21,6 +23,10 @@ function Layout({children}){    // children props
         // dispatch the logout action
         dispatch(logout());
     }
+
+    useEffect(() => {
+        dispatch(getCartDetails());  // fetch cart details and update state while first rendering the layout component
+    },[]);
 
     return (
         <div>
