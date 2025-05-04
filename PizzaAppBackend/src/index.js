@@ -10,6 +10,7 @@ const cartRouter = require('./routes/cartRoute');
 const authRouter = require('./routes/authRoute');
 const ProductRouter = require('./routes/productRoute');
 const orderRouter = require('./routes/orderRoute');
+const serverConfig = require('./config/serverConfig');
 // const User = require('./schema/userSchema');     // for testing purpose
 
 //Express object(server object)
@@ -17,7 +18,7 @@ const app = express();
 
 // configuring the cors(cross orgin resource sharing)
 app.use(cors({
-    origin: 'http://localhost:5173',  // allow to server to accept request from different origin
+    origin: serverConfig.FRONTEND_URL,  // allow to server to accept request from different origin
     credentials: true,  // allow session cookie from browser to pass through
 }));    // request(as user thorughtout the world(not having same IP)) which is not having same IP as that of server which gives cross origin request blocked therefore for that we have to enable cors in backened
 

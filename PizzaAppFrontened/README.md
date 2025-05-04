@@ -25,3 +25,6 @@ https://undraw.co/illustrations
 
 # Common flow to use thunk and to manage state
 => let say ek web page hoga, jo bhi data tumhe backend me bhejna h use tum page k local state me collect karoge then wha se dispatch karoge ek action me jo ki(action) define hoga slices me agr wo action async h to async thunk bna k define karoge wo thunk jo bhi internal api hit karega aur ek response bhejega(res me whi payload object bhejega joki tum apne action function me dete ho) aur yhi async thunk k response k basis pe agr ye fullfill ho gya to tum state ko kaise update karna chahte ho to uske liye builder.addCase then ek response hume milega page me uske basis pe aap kya karna chahte h navigate ye khuch aur....
+
+# Now for deploying backened we have used render while for frontened we can use vershel or Netlify or Aws amplify
+# npm run build => create dist folder compiling all js files and it tries to render in index.html in dist folder
