@@ -40,7 +40,7 @@ export const login = createAsyncThunk('/auth/login', async (data) =>{
             success: (resolvedPromise) => {
                 return resolvedPromise?.data?.message;
             },
-            loading: 'Hold back tight, we are registering your id... ',
+            loading: 'Hold back tight, we are trying to login you... ',
             error: 'Ohh No!, Something went worng. Please try again.',
         });
         const apiResponse = await response;

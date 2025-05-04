@@ -25,7 +25,8 @@ function Layout({children}){    // children props
     }
 
     useEffect(() => {
-        dispatch(getCartDetails());  // fetch cart details and update state while first rendering the layout component
+        if(isLoggedIn)  // if user is not logged in then no need to fetch the cart details
+            dispatch(getCartDetails());  // fetch cart details and update state while first rendering the layout component
     },[]);
 
     return (
