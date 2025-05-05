@@ -24,9 +24,16 @@ function Layout({children}){    // children props
         dispatch(logout());
     }
 
+    async function fetchCartDetails(){
+        const res = await dispatch(getCartDetails());
+        if(res?.payload?.isUnauthorized){  // if user is not logged in then dispatch the logout action
+            dispatch(logout());
+        }
+    }
+
     useEffect(() => {
         if(isLoggedIn)  // if user is not logged in then no need to fetch the cart details
-            dispatch(getCartDetails());  // fetch cart details and update state while first rendering the layout component
+            fetchCartDetails();  // fetch cart details and update state while first rendering the layout component
     },[]);
 
     return (

@@ -10,5 +10,7 @@ module.exports = {
     JWT_EXPIRY: process.env.JWT_EXPIRY,
     CLOUDINARY_API_SECRET: process.env.CLOUDINARY_API_SECRET,
     CLOUDINARY_API_KEY: process.env.CLOUDINARY_API_KEY,
-    CLOUDINARY_CLOUD_NAME: process.env.CLOUDINARY_CLOUD_NAME
+    CLOUDINARY_CLOUD_NAME: process.env.CLOUDINARY_CLOUD_NAME,
+    FRONTEND_URL: process.env.FRONTEND_URL,
+    COOKIE_SECURE: process.env.COOKIE_SECURE,    // this is used to set the cookie secure property to true or false depending on the environment variable
 }
